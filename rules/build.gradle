@@ -1,0 +1,35 @@
+apply plugin: 'java'
+
+group 'com.sch'
+version rootProject.ext.versionName
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+repositories {
+    maven {
+        url "http://dl.bintray.com/android/android-tools"
+    }
+}
+
+configurations {
+    lintChecks
+}
+
+dependencies {
+    compile "com.android.tools.lint:lint-api:$lintApiVersion"
+    compile "com.android.tools.lint:lint-checks:$lintApiVersion"
+
+    testCompile "com.android.tools.lint:lint:$lintApiVersion"
+    testCompile "com.android.tools.lint:lint-tests:$lintApiVersion"
+    testCompile "com.android.tools:testutils:$lintApiVersion"
+    testCompile "junit:junit:$junitVersion"
+
+    lintChecks files(jar)
+}
+
+jar {
+    manifest {
+        attributes "Lint-Registry": "com.sch.retrofit2.lint.LintIssueRegistry"
+    }
+}
